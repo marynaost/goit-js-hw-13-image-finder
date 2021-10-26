@@ -6,7 +6,9 @@
   "homepage": "https://marynaost.github.io/goit-js-hw-13-image-finder",
   "scripts": {
     "dev": "parcel src/*.html",
-    "build": "parcel build src/*.html --public-url /goit-js-hw-13-image-finder/"
+    "build": "parcel build src/*.html --public-url /goit-js-hw-13-image-finder/",
+    "deploy": "gh-pages -d dist",
+    "predeploy": "npm run build"
   },
   "repository": {
     "type": "git",
@@ -19,7 +21,6 @@
     "url": "https://github.com/marynaost/goit-js-hw-13-image-finder/issues"
   },
   "devDependencies": {
-    "parcel": "^2.0.0",
     "parcel-bundler": "^1.12.5",
     "parcel-plugin-handlebars-precompile": "^1.0.2",
     "parcel-plugin-nuke-dist": "^1.0.1",
