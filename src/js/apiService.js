@@ -17,13 +17,14 @@ export default class ImgApiService{
         this.page = 1
     }
 
-    fetchImages() {
+   async fetchImages() {
         const params = `?image_type=photo&orientation=horizontal&q=${this.searchQuery}&page=${this.page}&per_page=12&key=${API_KEY}`
-        const URL = BASE_URL + params
-        return fetch(URL)
-            .then(response => response.json())
-            .then(({ hits }) => {
-                this.page += 1;
+       const URL = BASE_URL + params
+
+       try {
+        const result = await fetch(URL)
+           const { hits } = await result.json()
+            this.incrementPage();
                 if (hits.length === 0) {
                     error({
                         title: 'Sorry',
@@ -33,9 +34,31 @@ export default class ImgApiService{
                     loadMoreBtn.hide()
                     return []
                 }
-                return hits;
-            })
+            return hits;
+       } catch (error) {
+           console.log(error); 
+       }
+       
+        // return fetch(URL)
+        //     .then(response => response.json())
+        //     .then(({ hits }) => {
+        //         this.page += 1;
+        //         if (hits.length === 0) {
+        //             error({
+        //                 title: 'Sorry',
+        //                 text: 'Not Found',
+        //                 delay: 1000,
+        //             })
+        //             loadMoreBtn.hide()
+        //             return []
+        //         }
+        //         return hits;
+        //     })
     }
+
+     incrementPage() {
+    this.page += 1;
+  }
 
     resetPages() {
         this.page = 1
